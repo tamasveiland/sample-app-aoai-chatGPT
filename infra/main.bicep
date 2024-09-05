@@ -15,7 +15,7 @@ param resourceGroupName string = ''
 
 param searchServiceName string = ''
 param searchServiceResourceGroupName string = ''
-param searchServiceResourceGroupLocation string = location
+param searchServiceResourceGroupLocation string = 'francecentral' //location
 param searchServiceSkuName string = ''
 param searchIndexName string = 'gptkbindex'
 param searchUseSemanticSearch bool = false
