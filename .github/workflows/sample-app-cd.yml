@@ -31,6 +31,7 @@ env:
   AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
   AUTH_CLIENT_ID: ${{ secrets.AUTH_CLIENT_ID }}
   AUTH_CLIENT_SECRET: ${{ secrets.AUTH_CLIENT_SECRET }}
+  AZURE_PRINCIPAL_TYPE: 'ServicePrincipal'
 
   # User Interface
   UI_TITLE: "DRV AI Chat"
