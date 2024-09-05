@@ -59,6 +59,9 @@ param cosmosAccountName string = ''
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
 
+@description('Type of the principal. Valid values: User,ServicePrincipal')
+param principalType string = 'User'
+
 param deployBasicChat bool = true
 
 var abbrs = loadJsonContent('abbreviations.json')
@@ -216,7 +219,7 @@ module openAiRoleUser 'core/security/role.bicep' = {
   params: {
     principalId: principalId
     roleDefinitionId: '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd'
-    principalType: 'User'
+    principalType: principalType
   }
 }
 
@@ -226,7 +229,7 @@ module searchRoleUser 'core/security/role.bicep' = {
   params: {
     principalId: principalId
     roleDefinitionId: '1407120a-92aa-4202-b7e9-c0e197c71c8f'
-    principalType: 'User'
+    principalType: principalType
   }
 }
 
