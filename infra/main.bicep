@@ -59,6 +59,8 @@ param cosmosAccountName string = ''
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
 
+param deployBasicChat bool = true
+
 var abbrs = loadJsonContent('abbreviations.json')
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 var tags = { 'azd-env-name': environmentName }
@@ -142,7 +144,7 @@ module backend 'core/host/appservice.bicep' = {
 }
 
 
-module openAi 'core/ai/cognitiveservices.bicep' = {
+module openAi 'core/ai/cognitiveservices.bicep' = if (!deployBasicChat) {
   name: 'openai'
   scope: openAiResourceGroup
   params: {
@@ -195,7 +197,7 @@ module searchService 'core/search/search-services.bicep' = {
 }
 
 // The application database
-module cosmos 'db.bicep' = {
+module cosmos 'db.bicep' = if (!deployBasicChat) {
   name: 'cosmos'
   scope: resourceGroup
   params: {
@@ -228,7 +230,7 @@ module searchRoleUser 'core/security/role.bicep' = {
   }
 }
 
-module searchIndexDataContribRoleUser 'core/security/role.bicep' = {
+module searchIndexDataContribRoleUser 'core/security/role.bicep' = if (!deployBasicChat) {
   scope: searchServiceResourceGroup
   name: 'search-index-data-contrib-role-user'
   params: {
@@ -238,7 +240,7 @@ module searchIndexDataContribRoleUser 'core/security/role.bicep' = {
   }
 }
 
-module searchServiceContribRoleUser 'core/security/role.bicep' = {
+module searchServiceContribRoleUser 'core/security/role.bicep' = if (!deployBasicChat) {
   scope: searchServiceResourceGroup
   name: 'search-service-contrib-role-user'
   params: {
@@ -270,7 +272,7 @@ module searchRoleBackend 'core/security/role.bicep' = {
 }
 
 // For doc prep
-module docPrepResources 'docprep.bicep' = {
+module docPrepResources 'docprep.bicep' = if (!deployBasicChat) {
   name: 'docprep-resources${resourceToken}'
   params: {
     location: location
@@ -284,6 +286,7 @@ module docPrepResources 'docprep.bicep' = {
     formRecognizerSkuName: !empty(formRecognizerSkuName) ? formRecognizerSkuName : 'S0'
   }
 }
+
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_RESOURCE_GROUP string = resourceGroup.name
