@@ -132,10 +132,10 @@ module backend 'core/host/appservice.bicep' = {
       AZURE_SEARCH_TITLE_COLUMN: searchTitleColumn
       AZURE_SEARCH_URL_COLUMN: searchUrlColumn
       // openai
-      AZURE_OPENAI_RESOURCE: openAi.outputs.name
+      AZURE_OPENAI_RESOURCE: (!deployBasicChat) ? openAi.outputs.name : null
       AZURE_OPENAI_MODEL: openAIModel
       AZURE_OPENAI_MODEL_NAME: openAIModelName
-      AZURE_OPENAI_KEY: openAi.outputs.key
+      AZURE_OPENAI_KEY: (!deployBasicChat) ? openAi.outputs.key : null
       AZURE_OPENAI_TEMPERATURE: openAITemperature
       AZURE_OPENAI_TOP_P: openAITopP
       AZURE_OPENAI_MAX_TOKENS: openAIMaxTokens
@@ -145,7 +145,6 @@ module backend 'core/host/appservice.bicep' = {
     }
   }
 }
-
 
 module openAi 'core/ai/cognitiveservices.bicep' = if (!deployBasicChat) {
   name: 'openai'
@@ -314,11 +313,11 @@ output AZURE_SEARCH_URL_COLUMN string = searchUrlColumn
 // openai
 // output AZURE_OPENAI_RESOURCE string = openAi.outputs.name
 output AZURE_OPENAI_RESOURCE_GROUP string = openAiResourceGroup.name
-output AZURE_OPENAI_ENDPOINT string = openAi.outputs.endpoint
+output AZURE_OPENAI_ENDPOINT string = (!deployBasicChat) ?  openAi.outputs.endpoint : ''
 output AZURE_OPENAI_MODEL string = openAIModel
 output AZURE_OPENAI_MODEL_NAME string = openAIModelName
-output AZURE_OPENAI_SKU_NAME string = openAi.outputs.skuName
-output AZURE_OPENAI_KEY string = openAi.outputs.key
+output AZURE_OPENAI_SKU_NAME string = (!deployBasicChat) ? openAi.outputs.skuName : ''
+output AZURE_OPENAI_KEY string = (!deployBasicChat) ? openAi.outputs.key : ''
 output AZURE_OPENAI_EMBEDDING_NAME string = '${embeddingDeploymentName}'
 output AZURE_OPENAI_TEMPERATURE int = openAITemperature
 output AZURE_OPENAI_TOP_P int = openAITopP
