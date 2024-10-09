@@ -312,7 +312,7 @@ output AZURE_SEARCH_TITLE_COLUMN string = searchTitleColumn
 output AZURE_SEARCH_URL_COLUMN string = searchUrlColumn
 
 // openai
-output AZURE_OPENAI_RESOURCE string = openAi.outputs.name
+// output AZURE_OPENAI_RESOURCE string = openAi.outputs.name
 output AZURE_OPENAI_RESOURCE_GROUP string = openAiResourceGroup.name
 output AZURE_OPENAI_ENDPOINT string = openAi.outputs.endpoint
 output AZURE_OPENAI_MODEL string = openAIModel
