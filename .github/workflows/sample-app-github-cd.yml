@@ -26,6 +26,9 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+          cd venv
+          ls
+          cd ..
       
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -46,6 +49,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    if: false
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
