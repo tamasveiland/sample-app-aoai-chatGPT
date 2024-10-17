@@ -27,8 +27,12 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           # cd venv
-          ls
+          # ls
           # cd ..
+          file=.env
+          while IFS= read -r varname; do
+              printf '%s\n' "$varname"
+          done < "$file"
       
       - name: Install dependencies
         if: false
