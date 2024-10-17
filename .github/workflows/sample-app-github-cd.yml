@@ -5,9 +5,9 @@
 name: Build and deploy - sample-app-github-cd
 
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
