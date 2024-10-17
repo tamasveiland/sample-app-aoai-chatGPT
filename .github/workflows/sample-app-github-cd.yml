@@ -26,20 +26,23 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-          cd venv
+          # cd venv
           ls
-          cd ..
+          # cd ..
       
       - name: Install dependencies
+        if: false
         run: pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
+        if: false
         run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
+        if: false
         with:
           name: python-app
           path: |
